@@ -10,12 +10,21 @@ let totalEmpHrs=0;
 let isPresent=1;
 let totalEmpWage=0;
 let totalWorkingDays=0;
+let empDailyWage=new Array();
 
 	while(totalEmpHrs <= MAX_HRS_IN_MONTH &&
 		totalWorkingDays <= NUM_OF_WORKING_DAYS){
 		totalWorkingDays++;
 		let empCheck=Math.floor(Math.random()*3);
-	switch(empCheck){
+		empHrs=getWorkingHours(empCheck);
+		totalEmpWage+= empHrs;
+		empDailyWage.push(calcDailyWage(empHrs));
+		}
+	function calcDailyWage(empHrs){
+		return empHrs*EMP_RATE_PER_HOURS;
+	}
+	function getWorkingHours(empCheck){
+	    switch(empCheck){
 		case IS_FULL_TIME:
         		empHrs=8;
 			break;
@@ -25,6 +34,7 @@ let totalWorkingDays=0;
 		default:
         		empHrs=0;
 			}
-		totalEmpHrs+=empHrs;
+		return empHrs;
 	}
-	totalEmpWage+=EMP_RATE_PER_HOURS;
+	totalEmpWage+=calcDailyWage(totalEmpHrs);
+	console.log(totalEmpWage);
